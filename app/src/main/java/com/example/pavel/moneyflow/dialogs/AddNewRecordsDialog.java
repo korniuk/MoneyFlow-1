@@ -23,7 +23,7 @@ import com.example.pavel.moneyflow.R;
 import com.example.pavel.moneyflow.service.MyIntentService;
 import com.example.pavel.moneyflow.util.Prefs;
 
-public class AddNewExpenseDialog extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AddNewRecordsDialog extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     EditText etVolumeOfExpenses;
     AutoCompleteTextView acNameOfExpenses;
@@ -37,11 +37,11 @@ public class AddNewExpenseDialog extends DialogFragment implements LoaderManager
         }
         activity = getActivity();
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.dialog_add_expency, null, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.dialog_add_records, null, false);
         //TODO set adapter for AutoCompleateTextView
 
-        etVolumeOfExpenses = (EditText) view.findViewById(R.id.etVolumeOfExpenses);
-        acNameOfExpenses = (AutoCompleteTextView) view.findViewById(R.id.acNameOfExpenses);
+        etVolumeOfExpenses = (EditText) view.findViewById(R.id.etVolume);
+        acNameOfExpenses = (AutoCompleteTextView) view.findViewById(R.id.acName);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view)

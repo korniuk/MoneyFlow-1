@@ -31,8 +31,7 @@
             android:parentActivityName=".activity.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.DashboardActivity">
-            </meta-data>
+                android:value=".activity.DashboardActivity"></meta-data>
         </activity>
 
         <service
@@ -45,7 +44,7 @@
             android:enabled="true"
             android:exported="true" />
 
-
+        <activity android:name=".activity.IncomesActivity"></activity>
     </application>
 
 </manifest>

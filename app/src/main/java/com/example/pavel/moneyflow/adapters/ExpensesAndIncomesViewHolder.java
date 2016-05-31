@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import com.example.pavel.moneyflow.R;
 
-public class ExpensesViewHolder extends RecyclerView.ViewHolder {
+public class ExpensesAndIncomesViewHolder extends RecyclerView.ViewHolder {
 
     protected TextView tvName;
     protected TextView tvVolume;
     protected TextView tvDate;
 
-    public ExpensesViewHolder(View view) {
+    public ExpensesAndIncomesViewHolder(View view) {
         super(view);
         tvName = (TextView) view.findViewById(R.id.tvNameItemExpenses);
         tvVolume = (TextView) view.findViewById(R.id.tvVolumeItemExpenses);

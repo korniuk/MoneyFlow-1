@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pavel.moneyflow.R;
-import com.example.pavel.moneyflow.dialogs.AddNewExpenseDialog;
+import com.example.pavel.moneyflow.dialogs.AddNewRecordsDialog;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -55,7 +55,7 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_expency:
-                AddNewExpenseDialog expencyDialog = new AddNewExpenseDialog();
+                AddNewRecordsDialog expencyDialog = new AddNewRecordsDialog();
                 expencyDialog.show(getSupportFragmentManager(), "ED");
                 break;
         }

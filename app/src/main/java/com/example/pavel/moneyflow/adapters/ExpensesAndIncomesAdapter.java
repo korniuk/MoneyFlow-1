@@ -10,17 +10,17 @@ import com.example.pavel.moneyflow.R;
 import com.example.pavel.moneyflow.util.DateConverter;
 import com.example.pavel.moneyflow.util.Prefs;
 
-public class ExpensesCursorAdapter extends AbstractCursorRecyclerAdapter<ExpensesViewHolder> {
+public class ExpensesAndIncomesAdapter extends AbstractCursorRecyclerAdapter<ExpensesAndIncomesViewHolder> {
 
     private Context context;
 
-    public ExpensesCursorAdapter(Context context, Cursor c) {
+    public ExpensesAndIncomesAdapter(Context context, Cursor c) {
         super(c);
         this.context = context;
     }
 
     @Override
-    public void onBindViewHolder(ExpensesViewHolder holder, Cursor cursor) {
+    public void onBindViewHolder(ExpensesAndIncomesViewHolder holder, Cursor cursor) {
         holder.tvName.setText(cursor.getString(cursor.getColumnIndex(Prefs.EXPENSE_NAMES_FIELDS_NAME)));
         holder.tvVolume.setText(cursor.getString(cursor.getColumnIndex(Prefs.EXPENSE_FIELD_VOLUME)));
         holder.tvDate.setText(
@@ -29,8 +29,8 @@ public class ExpensesCursorAdapter extends AbstractCursorRecyclerAdapter<Expense
     }
 
     @Override
-    public ExpensesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_expenses_adapter, parent, false);
-        return new ExpensesViewHolder(view);
+    public ExpensesAndIncomesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_incomes_and_expense_adapter, parent, false);
+        return new ExpensesAndIncomesViewHolder(view);
     }
 }
