@@ -50,7 +50,7 @@ public class MyIntentService extends IntentService {
     private void handleActionInsertExpense(String name, int volume) {
 
         ContentValues cvExpenseName = new ContentValues();
-        cvExpenseName.put(Prefs.EXPENCE_NAMES_FIELDS_NAME, name);
+        cvExpenseName.put(Prefs.EXPENSE_NAMES_FIELDS_NAME, name);
         Uri insertUri = getContentResolver().insert(Prefs.URI_EXPENSE_NAME, cvExpenseName);
 
         long insertedId = Long.parseLong(insertUri.getLastPathSegment());

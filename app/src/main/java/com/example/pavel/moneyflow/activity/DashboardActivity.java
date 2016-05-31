@@ -1,13 +1,11 @@
 package com.example.pavel.moneyflow.activity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pavel.moneyflow.R;
-import com.example.pavel.moneyflow.dialogs.AddNewExpencyDialog;
-import com.example.pavel.moneyflow.util.Prefs;
+import com.example.pavel.moneyflow.dialogs.AddNewExpenseDialog;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -58,7 +55,7 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_expency:
-                AddNewExpencyDialog expencyDialog = new AddNewExpencyDialog();
+                AddNewExpenseDialog expencyDialog = new AddNewExpenseDialog();
                 expencyDialog.show(getSupportFragmentManager(), "ED");
                 break;
         }

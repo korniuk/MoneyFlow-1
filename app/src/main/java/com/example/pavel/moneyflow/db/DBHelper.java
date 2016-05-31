@@ -19,6 +19,17 @@ public class DBHelper extends SQLiteOpenHelper {
             "create table %s ( %s integer primary key autoincrement, %s integer, %s integer, %s text);",
             Prefs.TABLE_EXPENSES, Prefs.FIELD_ID, Prefs.EXPENSE_FIELD_ID_PASSIVE, Prefs.EXPENSE_FIELD_VOLUME,
             Prefs.EXPENSE_FIELD_DATE);
+    /*
+    Table incomes:
+    - _id
+    - id_income_name (id from table income_name)
+    - volume (volume of money)
+    - date (date when income made)
+     */
+    private static final String CREATE_TABLE_INCOMES = String.format(
+            "create table %s ( %s integer primary key autoincrement, %s integer, %s integer, %s text);",
+            Prefs.TABLE_INCOMES, Prefs.FIELD_ID, Prefs.INCOMES_FIELD_ID_INCOME_NAME, Prefs.INCOMES_FIELD_VOLUME,
+            Prefs.INCOMES_FIELD_DATE);
 
     /*
     Table expense_name
@@ -27,7 +38,16 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     private static final String CREATE_TABLE_EXPENSE_NAME = String.format(
             "create table %s ( %s integer primary key autoincrement, %s text);",
-            Prefs.TABLE_EXPENSES_NAMES, Prefs.FIELD_ID, Prefs.EXPENCE_NAMES_FIELDS_NAME);
+            Prefs.TABLE_EXPENSES_NAMES, Prefs.FIELD_ID, Prefs.EXPENSE_NAMES_FIELDS_NAME);
+
+    /*
+    Table income_names
+    - _id
+    - name (name of expense)
+     */
+    private static final String CREATE_TABLE_INCOME_NAMES = String.format(
+            "create table %s ( %s integer primary key autoincrement, %s text);",
+            Prefs.TABLE_INCOME_NAMES, Prefs.FIELD_ID, Prefs.INCOME_NAMES_FIELDS_NAME);
 
 
     public DBHelper(Context context, int version) {
@@ -38,10 +58,19 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_EXPENSES);
         db.execSQL(CREATE_TABLE_EXPENSE_NAME);
+        db.execSQL(CREATE_TABLE_INCOMES);
+        db.execSQL(CREATE_TABLE_INCOME_NAMES);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        switch (newVersion){
+            case 2:
+                if (oldVersion == 1){
+                    db.execSQL(CREATE_TABLE_INCOMES);
+                    db.execSQL(CREATE_TABLE_INCOME_NAMES);
+                }
+
+        }
     }
 }

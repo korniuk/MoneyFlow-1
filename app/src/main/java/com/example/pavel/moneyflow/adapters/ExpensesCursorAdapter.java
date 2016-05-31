@@ -21,7 +21,7 @@ public class ExpensesCursorAdapter extends AbstractCursorRecyclerAdapter<Expense
 
     @Override
     public void onBindViewHolder(ExpensesViewHolder holder, Cursor cursor) {
-        holder.tvName.setText(cursor.getString(cursor.getColumnIndex(Prefs.EXPENCE_NAMES_FIELDS_NAME)));
+        holder.tvName.setText(cursor.getString(cursor.getColumnIndex(Prefs.EXPENSE_NAMES_FIELDS_NAME)));
         holder.tvVolume.setText(cursor.getString(cursor.getColumnIndex(Prefs.EXPENSE_FIELD_VOLUME)));
         holder.tvDate.setText(
                 DateConverter.convertToString(cursor.getString(cursor.getColumnIndex(Prefs.EXPENSE_FIELD_DATE))));

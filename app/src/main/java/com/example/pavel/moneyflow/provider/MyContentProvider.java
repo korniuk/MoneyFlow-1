@@ -22,13 +22,20 @@ public class MyContentProvider extends ContentProvider {
     private static final int URI_CODE_EXPENSE_NAME_ID = 20;
     private static final int URI_CODE_EXPENSE_JOIN = 3;
 
+    private static final int URI_CODE_INCOMES = 4;
+    private static final int URI_CODE_INCOME_NAMES = 5;
+    private static final int URI_CODE_INCOME_JOINED = 6;
+
     private static UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_EXPENSE, URI_CODE_EXPENSE);
         matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_EXPENSE_NAME, URI_CODE_EXPENSE_NAME);
-        matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_EXPENSE_NAME + "/#", URI_CODE_EXPENSE_NAME_ID);
         matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_EXPENSES_JOINED, URI_CODE_EXPENSE_JOIN);
+
+        matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_INCOMES, URI_CODE_INCOMES);
+        matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_INCOME_NAMES, URI_CODE_INCOME_NAMES);
+        matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_INCOMES_JOINED, URI_CODE_INCOME_JOINED);
     }
 
     public MyContentProvider() {
@@ -51,6 +58,14 @@ public class MyContentProvider extends ContentProvider {
             case URI_CODE_EXPENSE_NAME:
                 database = dbHelper.getWritableDatabase();
                 result = database.delete(Prefs.TABLE_EXPENSES_NAMES, selection, selectionArgs);
+                break;
+            case URI_CODE_INCOMES:
+                database = dbHelper.getWritableDatabase();
+                result = database.delete(Prefs.TABLE_INCOMES, selection, selectionArgs);
+                break;
+            case URI_CODE_INCOME_NAMES:
+                database = dbHelper.getWritableDatabase();
+                result = database.delete(Prefs.TABLE_INCOME_NAMES, selection, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported uri -> " + uri);
@@ -75,10 +90,22 @@ public class MyContentProvider extends ContentProvider {
             case URI_CODE_EXPENSE:
                 id = database.insert(Prefs.TABLE_EXPENSES, null, values);
                 insertUri = ContentUris.withAppendedId(uri, id);
+                getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             case URI_CODE_EXPENSE_NAME:
                 id = database.insert(Prefs.TABLE_EXPENSES_NAMES, null, values);
                 insertUri = ContentUris.withAppendedId(uri, id);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return insertUri;
+            case URI_CODE_INCOMES:
+                id = database.insert(Prefs.TABLE_INCOMES, null, values);
+                insertUri = ContentUris.withAppendedId(uri, id);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return insertUri;
+            case URI_CODE_INCOME_NAMES:
+                id = database.insert(Prefs.TABLE_INCOME_NAMES, null, values);
+                insertUri = ContentUris.withAppendedId(uri, id);
+                getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             default:
                 throw new IllegalArgumentException("Unsupported uri -> " + uri);
@@ -98,17 +125,34 @@ public class MyContentProvider extends ContentProvider {
             case URI_CODE_EXPENSE_NAME:
                 cursor = database.query(Prefs.TABLE_EXPENSES_NAMES, projection, selection, selectionArgs,
                         null, null, sortOrder);
+
                 break;
             case URI_CODE_EXPENSE_JOIN:
-                SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-                qb.setTables(Prefs.TABLE_EXPENSES + " INNER JOIN " + Prefs.TABLE_EXPENSES_NAMES + " ON (" +
+                SQLiteQueryBuilder expenseQueryBuilder = new SQLiteQueryBuilder();
+                expenseQueryBuilder.setTables(Prefs.TABLE_EXPENSES + " INNER JOIN " + Prefs.TABLE_EXPENSES_NAMES + " ON (" +
                         Prefs.TABLE_EXPENSES_NAMES + "." + Prefs.FIELD_ID + " = "
                         + Prefs.TABLE_EXPENSES + "." + Prefs.EXPENSE_FIELD_ID_PASSIVE + ")");
-                cursor = qb.query(database, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = expenseQueryBuilder.query(database, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case URI_CODE_INCOMES:
+                cursor = database.query(Prefs.TABLE_INCOMES, projection, selection,
+                        selectionArgs, null, null, sortOrder);
+                break;
+            case URI_CODE_INCOME_NAMES:
+                cursor = database.query(Prefs.TABLE_INCOME_NAMES, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+            case URI_CODE_INCOME_JOINED:
+                SQLiteQueryBuilder incomesQueryBuilder = new SQLiteQueryBuilder();
+                incomesQueryBuilder.setTables(Prefs.TABLE_INCOMES + " INNER JOIN " + Prefs.TABLE_INCOME_NAMES + " ON (" +
+                        Prefs.TABLE_INCOME_NAMES + "." + Prefs.FIELD_ID + " = "
+                        + Prefs.TABLE_INCOMES + "." + Prefs.INCOMES_FIELD_ID_INCOME_NAME + ")");
+                cursor = incomesQueryBuilder.query(database, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported uri -> " + uri);
         }
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
 

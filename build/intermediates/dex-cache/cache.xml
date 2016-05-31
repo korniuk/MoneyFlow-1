@@ -19,7 +19,7 @@
         jar="C:\Users\Pavel\AndroidStudioProjects\MoneyFlow\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.0 rc2"
-        sha1="02b1b60ebb90a21a21c06947dcb7e088a67306a6">
+        sha1="fad45e179d0c5aa811e496352785f6f62533b746">
         <dex dex="C:\Users\Pavel\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_d9f8ba25398cccb297ccd060a05f3e2e7cc97b58\classes.dex" />
     </item>
     <item
@@ -33,7 +33,7 @@
         jar="C:\Users\Pavel\AndroidStudioProjects\MoneyFlow\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="24.0.0 rc2"
-        sha1="14cc95429569cd8bdabd912fd97a9c3942bbf8c8">
+        sha1="ab299be236f5525ef6d32070c9a4eb5277ae21be">
         <dex dex="C:\Users\Pavel\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_b20203e2b009a439b7caddd43127e78fa84c7a20\classes.dex" />
     </item>
     <item

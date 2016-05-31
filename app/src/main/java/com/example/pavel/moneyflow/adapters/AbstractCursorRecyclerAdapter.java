@@ -1,6 +1,5 @@
 package com.example.pavel.moneyflow.adapters;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 
