@@ -66,11 +66,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         switch (newVersion){
             case 2:
-                if (oldVersion == 1){
-                    db.execSQL(CREATE_TABLE_INCOMES);
-                    db.execSQL(CREATE_TABLE_INCOME_NAMES);
-                }
-
+                db.execSQL(CREATE_TABLE_INCOMES);
+                db.execSQL(CREATE_TABLE_INCOME_NAMES);
         }
     }
 }
