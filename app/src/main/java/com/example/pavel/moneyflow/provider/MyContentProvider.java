@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 import com.example.pavel.moneyflow.db.DBHelper;
+import com.example.pavel.moneyflow.util.DateConverter;
 import com.example.pavel.moneyflow.util.Prefs;
 
 public class MyContentProvider extends ContentProvider {
@@ -26,6 +27,8 @@ public class MyContentProvider extends ContentProvider {
     private static final int URI_CODE_INCOME_NAMES = 5;
     private static final int URI_CODE_INCOME_JOINED = 6;
 
+    private static final int URI_CODE_MONTHLY_CASH = 7;
+
     private static UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -36,6 +39,8 @@ public class MyContentProvider extends ContentProvider {
         matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_INCOMES, URI_CODE_INCOMES);
         matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_INCOME_NAMES, URI_CODE_INCOME_NAMES);
         matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_INCOMES_JOINED, URI_CODE_INCOME_JOINED);
+
+        matcher.addURI(Prefs.AUTHORITY, Prefs.URI_TYPE_MONTHLY_CASH, URI_CODE_MONTHLY_CASH);
     }
 
     public MyContentProvider() {
@@ -90,25 +95,61 @@ public class MyContentProvider extends ContentProvider {
             case URI_CODE_EXPENSE:
                 id = database.insert(Prefs.TABLE_EXPENSES, null, values);
                 insertUri = ContentUris.withAppendedId(uri, id);
+                updateMonthlyCash(uri, values);
+                getContext().getContentResolver().notifyChange(Prefs.URI_EXPENSE_JOINED, null);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             case URI_CODE_EXPENSE_NAME:
                 id = database.insert(Prefs.TABLE_EXPENSES_NAMES, null, values);
                 insertUri = ContentUris.withAppendedId(uri, id);
+                getContext().getContentResolver().notifyChange(Prefs.URI_EXPENSE_JOINED, null);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             case URI_CODE_INCOMES:
                 id = database.insert(Prefs.TABLE_INCOMES, null, values);
                 insertUri = ContentUris.withAppendedId(uri, id);
+                updateMonthlyCash(uri, values);
+                getContext().getContentResolver().notifyChange(Prefs.URI_INCOMES_JOINED, null);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             case URI_CODE_INCOME_NAMES:
                 id = database.insert(Prefs.TABLE_INCOME_NAMES, null, values);
                 insertUri = ContentUris.withAppendedId(uri, id);
+                getContext().getContentResolver().notifyChange(Prefs.URI_INCOMES_JOINED, null);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return insertUri;
+            case URI_CODE_MONTHLY_CASH:
+                id = database.insert(Prefs.TABLE_MONTHLY_CASH_NAME, null, values);
+                insertUri = ContentUris.withAppendedId(uri, id);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             default:
                 throw new IllegalArgumentException("Unsupported uri -> " + uri);
+        }
+    }
+
+    private void updateMonthlyCash(Uri uri, ContentValues values){
+
+        ContentValues cvToUpdate = new ContentValues();
+
+        switch (matcher.match(uri)){
+            case URI_CODE_EXPENSE:
+                cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_EXPENSE, values.getAsString(Prefs.EXPENSE_FIELD_VOLUME));
+                break;
+            case URI_CODE_INCOMES:
+                cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_INCOMES, values.getAsString(Prefs.INCOMES_FIELD_VOLUME));
+                break;
+        }
+
+        Cursor c = query(Prefs.URI_MONTHLY_CASH, null,
+                Prefs.MONTHLY_CASH_FIELD_MONTH + " = " + DateConverter.getCurrentMonth(), null, null);
+
+        if (c.getCount() == 0){
+            cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_MONTH, DateConverter.getCurrentMonth());
+            insert(Prefs.URI_MONTHLY_CASH, cvToUpdate);
+        } else {
+            update(Prefs.URI_MONTHLY_CASH, cvToUpdate,
+                    Prefs.MONTHLY_CASH_FIELD_MONTH + " = " + DateConverter.getCurrentMonth(), null);
         }
     }
 
@@ -149,6 +190,10 @@ public class MyContentProvider extends ContentProvider {
                         + Prefs.TABLE_INCOMES + "." + Prefs.INCOMES_FIELD_ID_INCOME_NAME + ")");
                 cursor = incomesQueryBuilder.query(database, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
+            case URI_CODE_MONTHLY_CASH:
+                cursor = database.query(Prefs.TABLE_MONTHLY_CASH_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported uri -> " + uri);
         }
@@ -159,8 +204,12 @@ public class MyContentProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        // TODO: Implement this to handle requests to update one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        switch (matcher.match(uri)){
+            case URI_CODE_MONTHLY_CASH:
+                return database.update(Prefs.TABLE_MONTHLY_CASH_NAME, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Unsupported uri -> " + uri);
+        }
     }
 
 

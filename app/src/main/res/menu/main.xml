@@ -3,9 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item_expency"
-        android:title="@string/item_menu_expency_text"
         app:showAsAction="ifRoom|withText"
-        android:icon="@android:drawable/ic_menu_add">
+        android:icon="@drawable/ic_action_name"
+        android:id="@+id/item_user_profile"
+        android:title="Acount">
+
+    </item>
+    <item
+        android:id="@+id/item_list_expenses"
+        android:title="@string/label_menu_list"
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/list_action_name">
+    </item>
+    <item
+        android:id="@+id/item_list_incomes"
+        android:title="@string/label_menu_list"
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/list_action_name">
     </item>
 </menu>

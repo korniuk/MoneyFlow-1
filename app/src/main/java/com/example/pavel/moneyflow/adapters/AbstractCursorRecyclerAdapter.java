@@ -87,6 +87,4 @@ public abstract class AbstractCursorRecyclerAdapter<VH extends RecyclerView.View
         }
         return oldCursor;
     }
-
-
 }

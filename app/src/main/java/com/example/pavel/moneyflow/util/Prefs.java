@@ -8,6 +8,7 @@ public class Prefs {
 
     //------------------------Provider----------------------------
     public static final String AUTHORITY = "com.example.pavel.moneyflow.provider";
+
     //___________EXPENSES______________
     public static String URI_TYPE_EXPENSE = "expenses";
     public static String URI_TYPE_EXPENSE_NAME = "expenses_name";
@@ -22,10 +23,16 @@ public class Prefs {
     public static final Uri URI_INCOMES = Uri.parse("content://" + AUTHORITY + "/" + URI_TYPE_INCOMES);
     public static final Uri URI_INCOME_NAMES = Uri.parse("content://" + AUTHORITY + "/" + URI_TYPE_INCOME_NAMES);
     public static final Uri URI_INCOMES_JOINED = Uri.parse("content://" + AUTHORITY + "/" + URI_TYPE_INCOMES_JOINED);
+    //___________MONTHLY CASH_____________
+    public static final String URI_TYPE_MONTHLY_CASH = "monthly_cash";
+    public static final Uri URI_MONTHLY_CASH = Uri.parse("content://" + AUTHORITY + "/" + URI_TYPE_MONTHLY_CASH);
 
-    //--------------------DB Constants-----------------------------------
+    //-------------------------------------------------------------------
+    //-------------------------DB Constants------------------------------
+    //-------------------------------------------------------------------
+
     public static final String DB_NAME = "MoneyFlowDB";
-    public static final int DB_CURRENT_VERSION = 2;
+    public static final int DB_CURRENT_VERSION = 1;
     public static final String FIELD_ID = "_id";
 
     //___________________EXPENSES TABLE ____________________________
@@ -48,7 +55,18 @@ public class Prefs {
     public static final String INCOMES_FIELD_VOLUME = "volume";
     public static final String INCOMES_FIELD_DATE = "date";
 
-    //________________LOADER_CONSTANTS_____________________________
+    //__________________MONTHLY CASH TABLE____________________________
+    public static final String TABLE_MONTHLY_CASH_NAME = "month_cash";
+    public static final String MONTHLY_CASH_FIELD_MONTH = "month";
+    public static final String MONTHLY_CASH_FIELD_YEAR = "year";
+    public static final String MONTHLY_CASH_FIELD_INCOMES = "incomes";
+    public static final String MONTHLY_CASH_FIELD_EXPENSE = "expense";
+    public static final String MONTH_CASH_FIELD_BALANCE = "balance";
+    public static final String MONTHLY_CASH_FIELD_CASH_FLOW = "cash_flow";
+    public static final String MONTH_CASH_FIELD_I_PLAN = "i_plan";
+    public static final String MONTH_CASH_FIELD_E_PLAN = "e_plan";
+
+    //------------------LOADER_CONSTANTS-------------------------------
     public static final int ID_LOADER_EXPENSES_NAMES = 1;
 
 }
