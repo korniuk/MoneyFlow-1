@@ -5,6 +5,7 @@ import android.content.Intent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class DateConverter {
 
@@ -35,17 +36,11 @@ public class DateConverter {
         Calendar calendar = Calendar.getInstance();
 
         Date date = new Date(calendar.getTimeInMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YY");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("y");
 
 
         return dateFormat.format(date);
     }
 
-    public static long getCurrentMonthStartedInMillis(){
-        int month = Integer.parseInt(getCurrentMonth());
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, month);
 
-        return 0;
-    }
 }

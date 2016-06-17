@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,8 @@ public class RoundChart extends View {
 
     int plan = 1;
     int current = 1;
+
+    float percent = 0.0f;
 
     int diameter;
     RectF rectF;
@@ -38,10 +41,12 @@ public class RoundChart extends View {
         float angle = (current *360)/plan;
 
         Paint paintPrimary = new Paint();
+        paintPrimary.setAntiAlias(true);
+
         Paint paintAscend = new Paint();
+        paintAscend.setAntiAlias(true);
 
         if (angle < 360){
-
             colorPrimary = getResources().getColor(R.color.darkGreen);
             colorAscend = getResources().getColor(R.color.lightGreen);
         } else {
@@ -62,6 +67,7 @@ public class RoundChart extends View {
 
         Paint whitePaint = new Paint();
         whitePaint.setColor(Color.WHITE);
+        whitePaint.setAntiAlias(true);
         canvas.drawCircle(diameter/2, diameter/2, diameter/3, whitePaint);
     }
 
@@ -76,6 +82,7 @@ public class RoundChart extends View {
     public void setValues(int plan, int current){
         this.plan = plan;
         this.current = current;
+        percent = (current * 100)/plan;
         draw(new Canvas());
     }
 }

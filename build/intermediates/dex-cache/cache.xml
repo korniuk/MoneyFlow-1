@@ -1,3 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\thcit_000\.gradle\caches\modules-2\files-2.1\org.jsoup\jsoup\1.8.3\65fd012581ded67bc20945d85c32b4598c3a9cf1\jsoup-1.8.3.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="65fd012581ded67bc20945d85c32b4598c3a9cf1">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\jsoup-1.8.3_ba0ab69f4d24d7f43df1ed12a18c518f86319aaf\classes.dex" />
+    </item>
+    <item
+        jar="C:\Android\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_b5c73392635b6a81408a6a18c223a3400c171d1d\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_aa21323fffd9b6f5ae82d182d3b24a8df8e7c080\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="b6adf0392203c9021c82ab848f03e2075b142de0">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_2a81e0984518dba2556de8cab1d92c6717ed7941\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_5425e103a24b010066b1ac926c7f313226f806d5\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_70bfb423cbfa538f34f5ab98339046bebe32dd8f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="fb1f4a8e9354c1d980b086db50b8883346b8d947">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_cbc7a888f8210060c914e7ae82d9b090935cdba7\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.3.0_190a20e87e3adcb024272b7b026a70e559914cd9\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_9ed08a0c41af019016697c2ad1330ed7d334f451\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_6b2f3587551b919d4e7ec5ab9d12dfb3457804aa\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="C:\Users\thcit_000\AndroidStudioProjects\MoneyFlow\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.3.0_4324fd59c02ce8f56ed03d2e99372c5b24579fb7\classes.dex" />
+    </item>
+
+</items>

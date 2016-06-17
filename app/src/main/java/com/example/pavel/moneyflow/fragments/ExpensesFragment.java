@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,14 +19,16 @@ import android.widget.TextView;
 import com.example.pavel.moneyflow.R;
 import com.example.pavel.moneyflow.activity.ExpensesActivity;
 import com.example.pavel.moneyflow.activity.MainActivity;
+import com.example.pavel.moneyflow.util.DateConverter;
 import com.example.pavel.moneyflow.util.Prefs;
 import com.example.pavel.moneyflow.views.RoundChart;
 
 import java.util.HashMap;
 
-public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<HashMap<String, String>> {
+public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String CURRENT_MONTH = "current_month";
+    private int EXPENSES_PLAN = 1500;
+
     TextView tvExpensesSummary;
     RoundChart roundChart;
 
@@ -62,57 +65,28 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
         getContext().getContentResolver().unregisterContentObserver(contentObserver);
     }
 
+
     @Override
-    public Loader<HashMap<String, String>> onCreateLoader(int id, Bundle args) {
-        return new HashMapLoader(getActivity());
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), Prefs.URI_MONTHLY_CASH, null, Prefs.MONTHLY_CASH_FIELD_MONTH +
+                "=?", new String[]{DateConverter.getCurrentMonth()}, null);
     }
 
     @Override
-    public void onLoadFinished(Loader<HashMap<String, String>> loader, HashMap<String, String> data) {
-        tvExpensesSummary.setText(data.get(CURRENT_MONTH));
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data.moveToFirst()){
+            int current_plan = data.getInt(data.getColumnIndex(Prefs.MONTHLY_CASH_FIELD_EXPENSE));
+            roundChart.setValues(EXPENSES_PLAN, current_plan);
+            roundChart.invalidate();
+        } else {
+            roundChart.setValues(EXPENSES_PLAN, 0);
+            roundChart.invalidate();
+        }
 
-        roundChart.setValues(100, 130);
     }
 
     @Override
-    public void onLoaderReset(Loader<HashMap<String, String>> loader) {
+    public void onLoaderReset(Loader<Cursor> loader) {
 
-    }
-
-    private static class HashMapLoader extends Loader<HashMap<String, String>> {
-
-        private HashMap<String, String> result;
-
-        public HashMapLoader(Context context) {
-            super(context);
-            result = new HashMap<>();
-        }
-
-        @Override
-        protected void onStartLoading() {
-            forceLoad();
-        }
-
-        @Override
-        protected void onForceLoad() {
-            super.onForceLoad();
-            Cursor cursor = getContext().getContentResolver().query(Prefs.URI_EXPENSE, new String[]{Prefs.EXPENSE_FIELD_VOLUME}, null, null, null);
-
-            cursor.moveToFirst();
-            int value = 0;
-
-            if (cursor.getCount() == 0) {
-                result.put(CURRENT_MONTH, String.valueOf(value));
-                deliverResult(result);
-                return;
-            }
-
-            do {
-                value += cursor.getInt(cursor.getColumnIndex(Prefs.EXPENSE_FIELD_VOLUME));
-            } while (cursor.moveToNext());
-
-            result.put(CURRENT_MONTH, String.valueOf(value));
-            deliverResult(result);
-        }
     }
 }
