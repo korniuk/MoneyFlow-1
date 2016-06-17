@@ -46,7 +46,6 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
-        tvExpensesSummary = (TextView) view.findViewById(R.id.tvCurrentFragmentExpenses);
         roundChart = (RoundChart) view.findViewById(R.id.rcExpenses);
         getActivity().getSupportLoaderManager().initLoader(1, null, this);
         getContext().getContentResolver().registerContentObserver(Prefs.URI_EXPENSE, true, contentObserver);
