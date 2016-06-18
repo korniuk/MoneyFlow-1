@@ -97,6 +97,7 @@ public class MyContentProvider extends ContentProvider {
                 insertUri = ContentUris.withAppendedId(uri, id);
                 updateMonthlyCash(uri, values);
                 getContext().getContentResolver().notifyChange(Prefs.URI_EXPENSE_JOINED, null);
+                getContext().getContentResolver().notifyChange(Prefs.URI_MONTHLY_CASH, null);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             case URI_CODE_EXPENSE_NAME:
@@ -110,6 +111,7 @@ public class MyContentProvider extends ContentProvider {
                 insertUri = ContentUris.withAppendedId(uri, id);
                 updateMonthlyCash(uri, values);
                 getContext().getContentResolver().notifyChange(Prefs.URI_INCOMES_JOINED, null);
+                getContext().getContentResolver().notifyChange(Prefs.URI_MONTHLY_CASH, null);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return insertUri;
             case URI_CODE_INCOME_NAMES:

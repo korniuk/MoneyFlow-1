@@ -29,17 +29,7 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
 
     private int EXPENSES_PLAN = 1500;
 
-    TextView tvExpensesSummary;
     RoundChart roundChart;
-
-    ContentObserver contentObserver = new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            getActivity().getSupportLoaderManager().restartLoader(1, null, ExpensesFragment.this);
-            Log.d(Prefs.LOG_TAG, "Loader restart");
-        }
-    };
 
     @Nullable
     @Override
@@ -48,22 +38,8 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
         roundChart = (RoundChart) view.findViewById(R.id.rcExpenses);
         getActivity().getSupportLoaderManager().initLoader(1, null, this);
-        getContext().getContentResolver().registerContentObserver(Prefs.URI_EXPENSE, true, contentObserver);
         return view;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getContext().getContentResolver().registerContentObserver(Prefs.URI_EXPENSE, false, contentObserver);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        getContext().getContentResolver().unregisterContentObserver(contentObserver);
-    }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -74,14 +50,16 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()){
-            int current_plan = data.getInt(data.getColumnIndex(Prefs.MONTHLY_CASH_FIELD_EXPENSE));
-            roundChart.setValues(EXPENSES_PLAN, current_plan);
+            int current_expenses = data.getInt(data.getColumnIndex(Prefs.MONTHLY_CASH_FIELD_EXPENSE));
+            int expenses_plan = data.getInt(data.getColumnIndex(Prefs.MONTH_CASH_FIELD_E_PLAN));
+
+
+            roundChart.setValues(EXPENSES_PLAN, current_expenses);
             roundChart.invalidate();
         } else {
             roundChart.setValues(EXPENSES_PLAN, 0);
             roundChart.invalidate();
         }
-
     }
 
     @Override

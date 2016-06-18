@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -13,38 +14,46 @@ import com.example.pavel.moneyflow.util.Prefs;
 
 public class RoundChart extends View {
 
+    //DRAWING OBJECT
+    private RectF sector;
+    private Rect textBounds;
+
+    private Paint paintPrimarySector;
+    private Paint paintAscendSector;
+    private Paint paintInnerCircle;
+    private Paint paintText;
+
+
     int plan = 1;
     int current = 1;
-
     int percent = 100;
-
     int diameter;
-    RectF rectF;
 
     float angleValue;
 
     public RoundChart(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        textBounds = new Rect();
+        sector = new RectF();
+
+        paintPrimarySector = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paintAscendSector = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paintInnerCircle = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
+
+
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        rectF = new RectF(0, 0, diameter, diameter);
-
         int colorPrimary;
         int colorAscend;
 
-//        float angle = (current *360)/plan;
-
-        Paint paintPrimary = new Paint();
-        paintPrimary.setAntiAlias(true);
-
-        Paint paintAscend = new Paint();
-        paintAscend.setAntiAlias(true);
-
         float angle = angleValue;
+
         if (angle < 360){
             colorPrimary = getResources().getColor(R.color.darkGreen);
             colorAscend = getResources().getColor(R.color.lightGreen);
@@ -54,32 +63,29 @@ public class RoundChart extends View {
             colorAscend = getResources().getColor(R.color.lightRed);
         }
 
+        paintPrimarySector.setColor(colorPrimary);
+        paintAscendSector.setColor(colorAscend);
 
-        paintPrimary.setColor(colorPrimary);
-        paintAscend.setColor(colorAscend);
+        sector.set(0, 0, diameter, diameter);
 
+        canvas.drawArc(sector, 0, 360, true, paintPrimarySector);
+        canvas.drawArc(sector, 270, angle, true, paintAscendSector);
 
-        canvas.drawArc(rectF, 0, 360, true, paintPrimary);
-        canvas.drawArc(rectF, 270, angle, true, paintAscend);
+        paintInnerCircle.setColor(Color.WHITE);
+        canvas.drawCircle(diameter/2, diameter/2, diameter/3, paintInnerCircle);
 
-        Paint whitePaint = new Paint();
-        whitePaint.setColor(Color.WHITE);
-        whitePaint.setAntiAlias(true);
-        canvas.drawCircle(diameter/2, diameter/2, diameter/3, whitePaint);
-
-        Paint textPaint = new Paint();
-        textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(45);
-        textPaint.setAntiAlias(true);
-        textPaint.setTextSize(diameter/5);
+        //---------------TEXT---------------------
 
         String percentText = percent + "%";
 
-        float textWidth = textPaint.measureText(percentText);
-        float textHeight = textPaint.getTextSize();
+        paintText.setColor(Color.BLACK);
+        paintText.setTextSize(diameter/5);
+        paintText.getTextBounds(percentText, 0, percentText.length(), textBounds);
 
-        Log.d(Prefs.LOG_TAG, "Text width - " + textWidth);
-        canvas.drawText(percentText, diameter/2 - textWidth/2, canvas.getHeight()/2 + diameter/10, textPaint);
+        float center = diameter/2;
+
+        canvas.drawText(percentText, center - textBounds.exactCenterX(),
+                center - textBounds.exactCenterY(), paintText);
     }
 
     @Override
@@ -87,7 +93,6 @@ public class RoundChart extends View {
         super.onMeasure(heightMeasureSpec, widthMeasureSpec);
         diameter = ((int) getMeasuredHeight()/2);
         setMeasuredDimension(diameter, diameter);
-//        Log.d(Prefs.LOG_TAG, "Width - " +  + ", height - " + height);
     }
 
     public void setValues(int plan, int current){
