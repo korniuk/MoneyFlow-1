@@ -20,7 +20,6 @@ public class MyContentProvider extends ContentProvider {
 
     private static final int URI_CODE_EXPENSE = 1;
     private static final int URI_CODE_EXPENSE_NAME = 2;
-    private static final int URI_CODE_EXPENSE_NAME_ID = 20;
     private static final int URI_CODE_EXPENSE_JOIN = 3;
 
     private static final int URI_CODE_INCOMES = 4;
@@ -158,10 +157,6 @@ public class MyContentProvider extends ContentProvider {
                 cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_INCOMES, values.getAsString(Prefs.INCOMES_FIELD_VOLUME));
                 break;
         }
-
-
-
-
     }
 
     @Override

@@ -7,10 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import com.example.pavel.moneyflow.R;
-import com.example.pavel.moneyflow.util.Prefs;
 
 public class RoundChart extends View {
 
@@ -42,8 +40,6 @@ public class RoundChart extends View {
         paintInnerCircle = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
-
-
 
     @Override
     protected void onDraw(Canvas canvas) {

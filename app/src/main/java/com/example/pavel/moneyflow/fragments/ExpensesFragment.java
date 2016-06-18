@@ -1,29 +1,20 @@
 package com.example.pavel.moneyflow.fragments;
 
-import android.content.Context;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.pavel.moneyflow.R;
-import com.example.pavel.moneyflow.activity.ExpensesActivity;
-import com.example.pavel.moneyflow.activity.MainActivity;
 import com.example.pavel.moneyflow.util.DateConverter;
 import com.example.pavel.moneyflow.util.Prefs;
 import com.example.pavel.moneyflow.views.RoundChart;
-
-import java.util.HashMap;
 
 public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -34,7 +25,6 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
         roundChart = (RoundChart) view.findViewById(R.id.rcExpenses);
         getActivity().getSupportLoaderManager().initLoader(1, null, this);
@@ -52,8 +42,6 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
         if (data.moveToFirst()){
             int current_expenses = data.getInt(data.getColumnIndex(Prefs.MONTHLY_CASH_FIELD_EXPENSE));
             int expenses_plan = data.getInt(data.getColumnIndex(Prefs.MONTH_CASH_FIELD_E_PLAN));
-
-
             roundChart.setValues(EXPENSES_PLAN, current_expenses);
             roundChart.invalidate();
         } else {
