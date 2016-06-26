@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.pavel.moneyflow.R;
 import com.example.pavel.moneyflow.fragments.ExpensesFragment;
+import com.example.pavel.moneyflow.fragments.IncomesFragment;
 
 public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
@@ -54,11 +55,7 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return new ExpensesFragment();
             case 2:
-                DefaultFragment defaultFragmentSecond = new DefaultFragment();
-                Bundle argBundleSecond = new Bundle();
-                argBundleSecond.putString(DefaultFragment.KEY_NAME, context.getResources().getString(R.string.title_tab_incomes));
-                defaultFragmentSecond.setArguments(argBundleSecond);
-                return defaultFragmentSecond;
+                return new IncomesFragment();
             default:
                 throw new IllegalArgumentException("Not supported argument - \'" + position + "\'");
         }

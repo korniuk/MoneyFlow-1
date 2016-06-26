@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 import com.example.pavel.moneyflow.R;
@@ -24,7 +25,7 @@ public class RoundChart extends View {
 
     int plan = 1;
     int current = 1;
-    int percent = 100;
+    int percent = 0;
     int diameter;
 
     float angleValue;
@@ -70,12 +71,13 @@ public class RoundChart extends View {
         paintInnerCircle.setColor(Color.WHITE);
         canvas.drawCircle(diameter/2, diameter/2, diameter/3, paintInnerCircle);
 
-        //---------------TEXT---------------------
+        //----------------------TEXT-----------------------
 
         String percentText = percent + "%";
 
         paintText.setColor(Color.BLACK);
         paintText.setTextSize(diameter/5);
+        paintText.setTypeface(Typeface.DEFAULT_BOLD);
         paintText.getTextBounds(percentText, 0, percentText.length(), textBounds);
 
         float center = diameter/2;

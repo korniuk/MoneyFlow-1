@@ -212,7 +212,9 @@ public class MyContentProvider extends ContentProvider {
                       String[] selectionArgs) {
         switch (matcher.match(uri)){
             case URI_CODE_MONTHLY_CASH:
-                return database.update(Prefs.TABLE_MONTHLY_CASH_NAME, values, selection, selectionArgs);
+                int res = database.update(Prefs.TABLE_MONTHLY_CASH_NAME, values, selection, selectionArgs);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return res;
             default:
                 throw new IllegalArgumentException("Unsupported uri -> " + uri);
         }

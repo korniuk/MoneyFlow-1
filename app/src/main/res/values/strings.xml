@@ -26,7 +26,7 @@
     <string name="btnIncomesLabel">Доходы</string>
     <string name="title_activity_expenses">Траты</string>
     <string name="title_activity_incomes">Доходы</string>
-    <string name="title_activity_expenses_fab">ExpensesFabActivity</string>
+    <string name="title_activity_expenses_fab">Траты</string>
     <string name="title_activity_profile">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -101,4 +101,5 @@
     <string name="title_add_new_incomes_dialog">New incomes</string>
     <string name="message_add_new_incomes">Add new incomes</string>
     <string name="label_activity_incomes_name">Incomes</string>
+    <string name="title_expenses_plan">Expenses plan:</string>
 </resources>
