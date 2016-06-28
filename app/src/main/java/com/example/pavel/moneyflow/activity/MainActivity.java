@@ -12,6 +12,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                } else {
                    fab.setVisibility(View.VISIBLE);
                }
-
             }
 
             @Override
@@ -84,15 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-    }
-
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "BACK PRESSED", Toast.LENGTH_SHORT).show();
-        mViewPager.getChildAt(1).clearFocus();
-        super.onBackPressed();
     }
 
     private void setFragmentInfo(int position){

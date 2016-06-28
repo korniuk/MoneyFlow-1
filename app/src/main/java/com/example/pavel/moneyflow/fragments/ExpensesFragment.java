@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -16,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -26,27 +26,29 @@ import android.widget.Toast;
 import com.example.pavel.moneyflow.R;
 import com.example.pavel.moneyflow.util.DateConverter;
 import com.example.pavel.moneyflow.util.Prefs;
+import com.example.pavel.moneyflow.views.AnimatedRoundChart;
 import com.example.pavel.moneyflow.views.RoundChart;
+
+import org.jetbrains.annotations.Nullable;
 
 public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private int EXPENSES_PLAN = 1500;
-
-    RoundChart roundChart;
+    AnimatedRoundChart roundChart;
     EditText etExpensesPlan;
+    private boolean isOpened;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
 
-        roundChart = (RoundChart) view.findViewById(R.id.rcExpenses);
+        roundChart = (AnimatedRoundChart) view.findViewById(R.id.rcExpenses);
         etExpensesPlan = (EditText) view.findViewById(R.id.etExpensesPlan);
-        etExpensesPlan.setImeOptions(EditorInfo.IME_ACTION_DONE);
         etExpensesPlan.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d(Prefs.LOG_TAG, "Entered - " + keyEvent.getKeyCode());
+                Log.d(Prefs.LOG_TAG, "Entered - " + String.valueOf(keyEvent.getKeyCode()== KeyEvent.KEYCODE_ENTER));
                 if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER){
                     int input = Integer.parseInt(etExpensesPlan.getText().toString());
                     ContentValues cv = new ContentValues();
@@ -66,15 +68,41 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     Log.d(Prefs.LOG_TAG, "Monthly cash updated! New values - " + cv.toString());
                     return true;
-                } else if (keyEvent.isCanceled()){
-                    Toast.makeText(getActivity(), "Closed", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
         });
+        setListenerToRootView();
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         getActivity().getSupportLoaderManager().initLoader(1, null, this);
-        return view;
+    }
+
+
+    public void setListenerToRootView() {
+        final View activityRootView = getActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
+                if (heightDiff > 100) { // 99% of the time the height diff will be due to a keyboard.
+                    if (isOpened == false) {
+                        //Do two things, make the view top visible and the editText smaller
+                    }
+                    isOpened = true;
+                } else if (isOpened == true) {
+                    isOpened = false;
+                    etExpensesPlan.clearFocus();
+                }
+            }
+        });
     }
 
     @Override
@@ -93,12 +121,10 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
                 etExpensesPlan.setText(String.valueOf(plan));
                 int percent = (current * 100)/plan;
                 roundChart.setValues(percent);
-                roundChart.invalidate();
             }
 
         } else {
             roundChart.setValues(0);
-            roundChart.invalidate();
         }
     }
 

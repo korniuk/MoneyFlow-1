@@ -22,7 +22,6 @@ public class RoundChart extends View {
     private Paint paintInnerCircle;
     private Paint paintText;
 
-
     int plan = 1;
     int current = 1;
     int percent = 0;
