@@ -2,9 +2,8 @@ package com.example.pavel.moneyflow.fragments;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -16,39 +15,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pavel.moneyflow.R;
 import com.example.pavel.moneyflow.util.DateConverter;
 import com.example.pavel.moneyflow.util.Prefs;
-import com.example.pavel.moneyflow.views.AnimatedRoundChart;
 import com.example.pavel.moneyflow.views.RoundChart;
 
 import org.jetbrains.annotations.Nullable;
 
 public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    AnimatedRoundChart roundChart;
+    RoundChart roundChart;
     EditText etExpensesPlan;
     private boolean isOpened;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
+        roundChart = (RoundChart) view.findViewById(R.id.rcExpenses);
 
-        roundChart = (AnimatedRoundChart) view.findViewById(R.id.rcExpenses);
-        etExpensesPlan = (EditText) view.findViewById(R.id.etExpensesPlan);
+        etExpensesPlan = (EditText) view.findViewById(R.id.etIncomesPlan);
         etExpensesPlan.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d(Prefs.LOG_TAG, "Entered - " + String.valueOf(keyEvent.getKeyCode()== KeyEvent.KEYCODE_ENTER));
                 if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER){
                     int input = Integer.parseInt(etExpensesPlan.getText().toString());
                     ContentValues cv = new ContentValues();
@@ -78,9 +70,16 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
+    public void onCreate(@android.support.annotation.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(Prefs.LOG_TAG, "onCreate: chart = null ?" + String.valueOf(roundChart == null));
+//        roundChart.setBackgroundColor(((ColorDrawable) (getView().getBackground())).getColor());
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-
+        Log.d(Prefs.LOG_TAG, "onStart: chart = null ? - " + String.valueOf(roundChart == null));
         getActivity().getSupportLoaderManager().initLoader(1, null, this);
     }
 
@@ -121,10 +120,12 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
                 etExpensesPlan.setText(String.valueOf(plan));
                 int percent = (current * 100)/plan;
                 roundChart.setValues(percent);
+                roundChart.beginChartAnimation();
             }
 
         } else {
             roundChart.setValues(0);
+            roundChart.beginChartAnimation();
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.pavel.moneyflow.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;

@@ -3,48 +3,46 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <com.example.pavel.moneyflow.views.AnimatedRoundChart
+        android:layout_height="match_parent">
+        <com.example.pavel.moneyflow.views.RoundChart
+            android:layout_marginTop="25dp"
             android:id="@+id/rcExpenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_gravity="center_horizontal" />
         <RelativeLayout
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tvLabelExpensesPlan"
+                android:id="@+id/tvLabelIncomesPlan"
                 android:text="@string/title_expenses_plan"
-                android:layout_alignBaseline="@+id/etExpensesPlan"
+                android:layout_alignBaseline="@+id/etIncomesPlan"
                 android:textSize="19sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
-                android:id="@+id/etExpensesPlan"
+                android:id="@+id/etIncomesPlan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tvLabelExpensesPlan"
-                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tvLabelIncomesPlan"
                 android:textSize="19sp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
                 android:textAlignment="center"
                 android:minEms="3"
                 android:maxEms="6"
                 android:inputType="number"/>
             <TextView
-                android:id="@+id/tvMonthlyExpenses"
-                android:layout_below="@+id/etExpensesPlan"
+                android:id="@+id/tvMonthlyIncomes"
+                android:layout_below="@+id/etIncomesPlan"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"

@@ -10,4 +10,5 @@
     <color name="darkGreen">#219b31</color>
     <color name="lightRed">#ff4450</color>
     <color name="darkRed">#bb0b0e</color>
+    <color name="test">#b4ffee00</color>
 </resources>

@@ -140,21 +140,31 @@ public class MyContentProvider extends ContentProvider {
         switch (matcher.match(uri)){
             case URI_CODE_EXPENSE:
                 updateValue = values.getAsInteger(Prefs.EXPENSE_FIELD_VOLUME);
-                if (c.getCount() == 0){
-                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_MONTH, DateConverter.getCurrentMonth());
-                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_YEAR, DateConverter.getCurrentYear());
-                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_EXPENSE, updateValue);
-                    insert(Prefs.URI_MONTHLY_CASH, cvToUpdate);
-                } else {
-                    c.moveToFirst();
+                if (c.moveToFirst()){
                     int currentValue = c.getInt(c.getColumnIndex(Prefs.MONTHLY_CASH_FIELD_EXPENSE));
                     cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_EXPENSE, currentValue + updateValue);
                     update(Prefs.URI_MONTHLY_CASH, cvToUpdate,
                             Prefs.MONTHLY_CASH_FIELD_MONTH + " = " + DateConverter.getCurrentMonth(), null);
+                } else {
+                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_MONTH, DateConverter.getCurrentMonth());
+                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_YEAR, DateConverter.getCurrentYear());
+                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_EXPENSE, updateValue);
+                    insert(Prefs.URI_MONTHLY_CASH, cvToUpdate);
                 }
                 break;
             case URI_CODE_INCOMES:
-                cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_INCOMES, values.getAsString(Prefs.INCOMES_FIELD_VOLUME));
+                updateValue = values.getAsInteger(Prefs.INCOMES_FIELD_VOLUME);
+                if (c.moveToFirst()){
+                    int currentValue = c.getInt(c.getColumnIndex(Prefs.MONTHLY_CASH_FIELD_INCOMES));
+                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_INCOMES, currentValue + updateValue);
+                    update(Prefs.URI_MONTHLY_CASH, cvToUpdate,
+                            Prefs.MONTHLY_CASH_FIELD_MONTH + " = " + DateConverter.getCurrentMonth(), null);
+                } else {
+                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_MONTH, DateConverter.getCurrentMonth());
+                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_YEAR, DateConverter.getCurrentYear());
+                    cvToUpdate.put(Prefs.MONTHLY_CASH_FIELD_INCOMES, updateValue);
+                    insert(Prefs.URI_MONTHLY_CASH, cvToUpdate);
+                }
                 break;
         }
     }

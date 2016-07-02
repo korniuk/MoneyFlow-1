@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.example.pavel.moneyflow.views.RoundChart
-        android:id="@+id/rcIncomes"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</FrameLayout>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.example.pavel.moneyflow.views.RoundChart
+            android:layout_marginTop="25dp"
+            android:id="@+id/rcIncomes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvLabelIncomesPlan"
+                android:text="@string/title_incomes_plan"
+                android:layout_alignBaseline="@+id/etIncomesPlan"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etIncomesPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvLabelIncomesPlan"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
+                android:textAlignment="center"
+                android:minEms="3"
+                android:maxEms="6"
+                android:inputType="number"/>
+            <TextView
+                android:id="@+id/tvMonthlyIncomes"
+                android:layout_below="@+id/etIncomesPlan"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

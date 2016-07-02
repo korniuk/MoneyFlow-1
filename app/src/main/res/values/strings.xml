@@ -102,4 +102,5 @@
     <string name="message_add_new_incomes">Add new incomes</string>
     <string name="label_activity_incomes_name">Incomes</string>
     <string name="title_expenses_plan">Expenses plan:</string>
+    <string name="title_incomes_plan">Incomes plan:</string>
 </resources>
