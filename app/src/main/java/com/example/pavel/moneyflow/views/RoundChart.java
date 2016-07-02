@@ -55,7 +55,7 @@ public class RoundChart extends View {
 //        String s = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "background");
 //        int i = attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "background", 0);
 
-        setBackgroundResource(0); // игнориум значения заданные в android:background
+        super.setBackgroundResource(0); // игнориум значения заданные в android:background
 
         colorPalette = ColorPalette.makeDefault();
 
@@ -217,6 +217,7 @@ public class RoundChart extends View {
 
         public void setColorAboveThreshold(int color) {
             this.colorAboveThreshold = color;
+            isColorAboveSet = true;
         }
 
         public int getPrimaryColor(int value){
